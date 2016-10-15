@@ -15,13 +15,14 @@ module.exports = {
 	},
 
 	alreadyGuessed: function(guess) {
-	 	// console.log("Checking if letter is already guessed");
+	 	console.log("Checking if letter is already guessed");
 		//check if letter already guessed
 		for (j=0; j <lettersGuessed.length; j++) {
-			if (letter == lettersGuessed[j]) {
+			if (guess == lettersGuessed[j]) {
 				return(true);
 			} 
 		}
+		lettersGuessed.push(guess);
 		return(false)
 	},
 
@@ -32,7 +33,6 @@ module.exports = {
 
 		// Compare against word
 		for (var i = 0; i < currentWord.length; i++) {
-			
 			if (guess == currentWord[i]) {
 				tempWordBeingPlayed += guess;
 			} else if (wordBeingPlayed[i] != "_") {

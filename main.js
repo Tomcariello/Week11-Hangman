@@ -19,14 +19,14 @@ function startGame() {
 	  if (currentWord[i] == " ") {
 	    wordBeingPlayed += "   "; 
 	  } else {
-	    wordBeingPlayed += "_ ";
+	    wordBeingPlayed += "_";
 	  }
 	}
 	getGuess();
 }
 
 function getGuess() {
-	// console.log("The word being played is " + currentWord);
+	console.log("The word being played is " + currentWord);
 	console.log("====================");
 	console.log(wordBeingPlayed);
 	console.log("====================");
@@ -42,6 +42,7 @@ function getGuess() {
 	    	// word.processGuess(answers.guess,currentWord);
 		    if (word.processGuess(answers.guess) == false) {
 				console.log("Maybe try a letter...?")
+				getGuess();
 			} else {
 				// console.log("it's a letter! passing to checkAlreadyGuessed...")
 				checkAlreadyGuessed(answers.guess);
