@@ -4,15 +4,14 @@ var currentWord;
 var guesses = 0;
 var totalMatchedGuesses = 0;
 
-
 var inquirer = require('inquirer');
 var word = require('./word.js');
 var chooseWord = require('./game.js');
 
-
 function startGame() {
 	//  Randomly select word for game from array
-	currentWord = chooseWord.selectWord();
+	var randomNumber = Math.floor(Math.random() * chooseWord.game.words.length);
+	currentWord = chooseWord.game.words[randomNumber];
 
 	// Build object(?); alphabet, letter in word (Y/N), guessed (Y/N), display character (letter/_), 
 	for (i = 0; i < currentWord.length; i++) {
