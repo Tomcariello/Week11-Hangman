@@ -1,86 +1,37 @@
-// word.js contains the methods which check the letters versus the random word
-var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-var lettersGuessed = [];
+// require your letter objects
+var letter = require('./letter.js');
 
-module.exports = {
-	processGuess: function(guess) {
-		// console.log("Processing the guess ");
-		//check letter is a-z
-		for (i=0; i < alphabet.length; i++) {
-			if (guess == alphabet[i]) {
-				return(true);
-			} 	
-		}
-		return(false);
-	},
+exports.Word = function(word){
+// property to store the string wrd
 
-	alreadyGuessed: function(guess) {
-	 	console.log("Checking if letter is already guessed");
-		//check if letter already guessed
-		for (j=0; j <lettersGuessed.length; j++) {
-			if (guess == lettersGuessed[j]) {
-				return(true);
-			} 
-		}
-		lettersGuessed.push(guess);
-		return(false)
-	},
+// a collection of letter objects
 
-	checkAgainstWord: function(guess,currentWord,wordBeingPlayed) {
-		// console.log("checking if " + guess + " is in word " + currentWord);
-		
-		var tempWordBeingPlayed = "";
+// property is the word found?
 
-		// Compare against word
-		for (var i = 0; i < currentWord.length; i++) {
-			if (guess == currentWord[i]) {
-				tempWordBeingPlayed += guess;
-			} else if (wordBeingPlayed[i] != "_") {
-				tempWordBeingPlayed += wordBeingPlayed[i];
-			} else {
-				tempWordBeingPlayed += "_";
-			}
-			// console.log("returning..." + tempWordBeingPlayed);
-		}
- 		
- 		
- 		return(tempWordBeingPlayed);
+	this.getLets = function() {
+// populate the collection above with new Letter objects
+	};
+	
+	//found the current word
+	this.didWeFindTheWord = function() {
+		//sets this.found in the word object to true or false if all letter objects have a true value in their appear property
+		});
 
-		//is this letter in the word?
-		//if yes:
-		// update word/underscores
-		// if no:
-		// increment guesses
-		// check if game over
+		return this.found;
+	};
 
-	}
+	this.checkIfLetterFound = function(guessLetter) {
+
+// iterate through the collection of letter Objects
+
+// if guessLetter matches Letter property, the letter object should be shown
+		return whatToReturn;
+	};
+
+	this.wordRender = function() {
+// render the word based on if letters are found or ot found
+		return str;
+	};
 }
 
-
-
-
-
-	//already selected?
-
-	//check for matches against played word
-
-	// tempWordBeingPlayed = "";
-	// var matchedGuess = false;
-	// //Force lowercase
-	// letterPlayed = String.fromCharCode(event.keyCode).toLowerCase();
-
-	// wordBeingPlayed = tempWordBeingPlayed;
-
-	// // 		Display letter in "already used" bin
-	// if (matchedGuess == true) {
-	// 	checkValidSelection(letterPlayed,"true");
-	// 	printLetters();
-	// 	wordComplete();
-	// }
-	
-	// if (matchedGuess == false) {
-	// 	checkValidSelection(letterPlayed,"false");
-	// }
-
-
-
+// export to use in main.js
