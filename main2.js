@@ -5,7 +5,7 @@ var guesses = 0;
 var totalMatchedGuesses = 0;
 
 var prompt = require('prompt');
-var word = require('./word.js');
+var wordFile = require('./word.js');
 var chooseWord = require('./game.js');
 
 prompt.start();
@@ -15,16 +15,15 @@ game = {
 	wordsWon : 0, // count of words Found
 	guessesRemaining : 10, //per word
 	currentWord : null, //the word object
-	startGame : function (wrd){
+	startGame : function (word){
 		//make sure the user has 10 guesses
 		this.guessesRemaining = 10;
 
 		//get a random word from the array
 		var randomNumber = Math.floor(Math.random() * this.wordBank.length);
-		this.currentWord = this.wordBank[randomNumber];
-		console.log(this.currentWord);
-
+		
 		//populate currentWord (made from Word constructor function) object with letters
+		this.currentWord = wordFile.WordConstructor(this.wordBank[randomNumber]);
 
 		this.keepPromptingUser();
 
@@ -38,9 +37,9 @@ game = {
 
 		prompt.get(['guessLetter'], function(err, result) {
 		    // result is an object like this: { guessLetter: 'f' }
-			console.log("You chose " + result);
+			console.log("You chose " + JSON.stringify(result));
 
-		    //this checks if the letter was found. If it is it sets that specific letter in the word to be found
+		    //if the letter was found set that specific letter in the word to "found"
 
 		    //if the user guessed incorrectly decrement guessesremaining & console.log if they were incorrect or correct
 		    	

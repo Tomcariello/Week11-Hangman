@@ -1,36 +1,44 @@
 // require your letter objects
 var letter = require('./letter.js');
 
-exports.Word = function(word){
-// property to store the string wrd
+//populate currentWord (made from Word constructor function) object with letters
 
-// a collection of letter objects
+exports.WordConstructor = function(wrd){
+	console.log("in the word function " + wrd);
+	// property to store the string word
 
-// property is the word found?
+	// a collection of letter objects
+	var alphabet = function(value, guseed,display) {
+		
+	}
 
-	this.getLets = function() {
-// populate the collection above with new Letter objects
-	};
+
+	// for (var i=0; i < wrd.length; i++) {
+	// 	//iterate through the selected word & create objects for each letters' status
+	// }
+
+	this.getLetters = function() {
+		// populate the collection above with new Letter objects
+	}
 	
 	//found the current word
 	this.didWeFindTheWord = function() {
-		//sets this.found in the word object to true or false if all letter objects have a true value in their appear property
-		});
+		//sets this.found in the word object to true/false if all letter objects are TRUE in their appear property
 
 		return this.found;
-	};
+	}
 
 	this.checkIfLetterFound = function(guessLetter) {
 
-// iterate through the collection of letter Objects
+		// iterate through the collection of letter Objects
 
-// if guessLetter matches Letter property, the letter object should be shown
+		// if guessLetter matches Letter property, the letter object should be shown
 		return whatToReturn;
 	};
 
 	this.wordRender = function() {
-// render the word based on if letters are found or ot found
-		return str;
+		// render the word based on if letters are found or not found
+		return wordString;
 	};
 }
 
