@@ -21,11 +21,14 @@ game = {
 
 		//get a random word from the array
 		var randomNumber = Math.floor(Math.random() * this.wordBank.length);
-		
-		//populate currentWord (made from Word constructor function) object with letters
-		this.currentWord = wordFile.WordConstructor(this.wordBank[randomNumber]);
 
-		this.keepPromptingUser();
+		var tempWord = wordFile.WordConstructor(this.wordBank[randomNumber]);
+
+		//populate currentWord object with letters
+		console.log("TW is " + tempWord);
+		// this.currentWord = "something";
+
+		// this.keepPromptingUser();
 
 	}, 
 	resetGuessesRemaining : function(){
