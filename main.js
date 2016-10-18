@@ -55,10 +55,11 @@ game = {
 
 			//if guessed incorrectly decrement guessesremaining & console.log if they were incorrect or correct
 			if (decrementGuesses == true) {
-				self.guessesremaining--;
-				console.log("Too bad, '" + result.guessLetter + "'' is not in this word.");
+				self.guessesRemaining--;
+				console.log("Too bad, '" + result.guessLetter + "' is not in this word.");
 			} else {
-				console.log("Good guess, '" + result.guessLetter + "'' is in this word!");
+				console.log("Good guess, '" + result.guessLetter + "' is in this word!");
+
 				//check if you win only when you are right
 				//end game ?
 			}
@@ -66,19 +67,27 @@ game = {
 			//push the letter into the guessedLetters array
 			self.guessedLetters.push(result.guessLetter);
 
-	
-			 
-		    // display the user how many guesses remaining
-			
-			// render the word 
-				
-			// display letters the user has guessed
-
-			// if user has remaining guesses and Word isn't found
-			
 			// if user has no guesses left, show them the word and tell them they lost
-			
-			// else show the user word and rendered
+			if (self.guessesRemaining == 0) {
+				console.log("You lose!");
+				//restart game
+			} else {
+				// if user has remaining guesses and Word isn't found
+			 
+			    // display the user how many guesses remaining
+			    console.log("You have " + self.guessesRemaining + " guesses remaining.");
+
+			    // display letters the user has guessed
+				console.log("Already guessed: " + self.guessedLetters);		   
+				
+				// render the word 
+				var wordToPrint = "";
+				for (var i = 0; i < self.currentWord.length; i++) {
+					wordToPrint += self.currentWord[i].display;
+				}
+				console.log(wordToPrint);
+				self.keepPromptingUser();
+			}			
 		    
 		});
 	}
