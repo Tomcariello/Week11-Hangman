@@ -3,22 +3,21 @@ var letter = require('./letter.js');
 
 //populate currentWord (made from Word constructor function) object with letters
 
+// export to use in main.js
 exports.WordConstructor = function(wordToProcess){
-	console.log("in the word function " + wordToProcess.length);
 
+	// declare array to contain the letter objects
+	var letterObjectArray = [];
+
+	//loop through the word being played & send each letter to LetterObjectCreator for object creation
 	for (var i = 0; i < wordToProcess.length; i++) {
-		console.log(wordToProcess[i]);
 		var tempLetter = new letter.LetterObjectCreator(wordToProcess[i], false, "_");
-		console.log(tempLetter);
-		//create object for this letter
-		//push object to array
-		//return array to GAME object
+		letterObjectArray.push(tempLetter);
 	}
 
-
-	return wordToProcess;
-	// property to store the string word
+	//send the object array back to the game.js
+	return letterObjectArray;
 
 }
 
-// export to use in main.js
+

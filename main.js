@@ -18,17 +18,18 @@ game = {
 	startGame : function (word){
 		//make sure the user has 10 guesses
 		this.guessesRemaining = 10;
+		this.guessedLetters = [];
+		this.currentWord = "";
 
 		//get a random word from the array
 		var randomNumber = Math.floor(Math.random() * this.wordBank.length);
 
-		var tempWord = wordFile.WordConstructor(this.wordBank[randomNumber]);
+		//send word to WordConstructor and populate currentWord with an array of letter objects
+		this.currentWord = wordFile.WordConstructor(this.wordBank[randomNumber]);
 
-		//populate currentWord object with letters
-		console.log("TW is " + tempWord);
-		// this.currentWord = "something";
+		console.log(JSON.stringify(this.currentWord[0].letter));
 
-		// this.keepPromptingUser();
+		this.keepPromptingUser();
 
 	}, 
 	resetGuessesRemaining : function(){
@@ -39,16 +40,33 @@ game = {
 		var self = this;
 
 		prompt.get(['guessLetter'], function(err, result) {
-		    // result is an object like this: { guessLetter: 'f' }
-			console.log("You chose " + JSON.stringify(result));
 
-		    //if the letter was found set that specific letter in the word to "found"
+			var decrementGuesses = true;
 
-		    //if the user guessed incorrectly decrement guessesremaining & console.log if they were incorrect or correct
-		    	
-			//check if you win only when you are right
+			//loop through letter objects and update each one
+			for (var i = 0; i < self.currentWord.length; i++) {
+				if (result.guessLetter == self.currentWord[i].letter) {
+					//update object
+					self.currentWord[i].status = true;
+					self.currentWord[i].display = self.currentWord[i].letter;
+					decrementGuesses = false;
+				}
+			}
 
-        //end game
+			//if guessed incorrectly decrement guessesremaining & console.log if they were incorrect or correct
+			if (decrementGuesses == true) {
+				self.guessesremaining--;
+				console.log("Too bad, '" + result.guessLetter + "'' is not in this word.");
+			} else {
+				console.log("Good guess, '" + result.guessLetter + "'' is in this word!");
+				//check if you win only when you are right
+				//end game ?
+			}
+			
+			//push the letter into the guessedLetters array
+			self.guessedLetters.push(result.guessLetter);
+
+	
 			 
 		    // display the user how many guesses remaining
 			
