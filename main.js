@@ -17,7 +17,7 @@ game = {
 	currentWord : null, //the word object
 	startGame : function (word){
 		//make sure the user has 10 guesses
-		this.guessesRemaining = 10;
+		this.resetGuessesRemaining = 10;
 		this.guessedLetters = [];
 		this.currentWord = "";
 
@@ -27,7 +27,8 @@ game = {
 		//send word to WordConstructor and populate currentWord with an array of letter objects
 		this.currentWord = wordFile.WordConstructor(this.wordBank[randomNumber]);
 
-		console.log(JSON.stringify(this.currentWord[0].letter));
+		this.guessesRemaining = 10;
+		// console.log(JSON.stringify(this.currentWord[0].letter));
 
 		this.keepPromptingUser();
 
@@ -45,36 +46,68 @@ game = {
 
 			//loop through letter objects and update each one
 			for (var i = 0; i < self.currentWord.length; i++) {
-				if (result.guessLetter == self.currentWord[i].letter) {
-					//update object
+				if (result.guessLetter == self.currentWord[i].letter && self.currentWord[i].status == false) {
 					self.currentWord[i].status = true;
 					self.currentWord[i].display = self.currentWord[i].letter;
+				
+					//push the letter into the guessedLetters array
+					self.guessedLetters.push(result.guessLetter);
+					decrementGuesses = false;
+
+					//check if you win only when you are right
+					var countMatchedLetters = 0;
+
+					for (var j = 0; j < self.currentWord.length; j++) {
+						if (self.currentWord[j].status == true) {
+							countMatchedLetters++;
+						}
+					}
+
+					if (countMatchedLetters == self.currentWord.length) {
+						//Player Wins
+						console.log("You win! Play again?");
+						game.startGame();
+						return;
+					} else {
+						console.log("Good guess, '" + result.guessLetter + "' is in this word!");
+					}
+				
+				}
+			}
+
+			for (var i = 0; i < self.guessedLetters.length; i++) {
+				if (result.guessLetter == self.guessedLetters[i]) {
+					console.log("You already guessed that!");
 					decrementGuesses = false;
 				}
 			}
 
-			//if guessed incorrectly decrement guessesremaining & console.log if they were incorrect or correct
+			//if guessed incorrectly and not already guessed
 			if (decrementGuesses == true) {
 				self.guessesRemaining--;
 				console.log("Too bad, '" + result.guessLetter + "' is not in this word.");
-			} else {
-				console.log("Good guess, '" + result.guessLetter + "' is in this word!");
+				
+				//push the letter into the guessedLetters array
+				self.guessedLetters.push(result.guessLetter);
+			}	
 
-				//check if you win only when you are right
-				//end game ?
-			}
-			
-			//push the letter into the guessedLetters array
-			self.guessedLetters.push(result.guessLetter);
+					
 
 			// if user has no guesses left, show them the word and tell them they lost
 			if (self.guessesRemaining == 0) {
-				console.log("You lose!");
+				var wordToPrint = "";
+				for (var i = 0; i < self.currentWord.length; i++) {
+					wordToPrint += self.currentWord[i].letter;
+				}
+				//print what the word was
+				console.log("You lose! The word was " + wordToPrint);
+
 				//restart game
-			} else {
-				// if user has remaining guesses and Word isn't found
-			 
-			    // display the user how many guesses remaining
+				console.log("Play again?");
+				game.startGame();
+
+			} else { // if user has remaining guesses and Word isn't found
+				// display the user how many guesses remaining
 			    console.log("You have " + self.guessesRemaining + " guesses remaining.");
 
 			    // display letters the user has guessed
